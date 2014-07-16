@@ -18,7 +18,8 @@ grok message ^(?<time>[^ ]+) (?<level>\w+)\s+\[(?<module>[^\]]+)\] (?<message>.+
 # Discard everything but errors.
 where level="ERROR"
 
-# Convent JSON to text.
+# Convert JSON to multiline text (the first line makes up the email subject, the full text
+# ends up as email body).
 toText Error encountered in ${module}: ${message}
 # Send remaining events.
 mail to="dev@host.sample" mail.smtp.host="localhost"
