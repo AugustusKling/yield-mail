@@ -3,6 +3,7 @@ package yield.mail;
 import java.util.List;
 import java.util.Properties;
 
+import javax.annotation.Nonnull;
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -18,6 +19,7 @@ import org.apache.log4j.Logger;
 
 import yield.core.BaseControlQueueProvider;
 import yield.core.EventListener;
+import yield.core.EventType;
 import yield.input.ListenerExceutionFailed;
 
 public class Mailer extends BaseControlQueueProvider implements
@@ -99,6 +101,12 @@ public class Mailer extends BaseControlQueueProvider implements
 					new ListenerExceutionFailed<String>(e, ex));
 			Logger.getLogger(getClass()).error("Cannot send email. ", ex);
 		}
+	}
+
+	@Override
+	@Nonnull
+	public EventType getInputType() {
+		return new EventType(String.class);
 	}
 
 }
